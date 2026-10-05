@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KI im Studium</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="karte">
+    <header class="kopf">
+      <p class="kicker">Umfrage · dauert etwa eine Minute</p>
+      <h1>Wie nutzen Studierende KI?</h1>
+      <div class="fortschritt" id="fortschritt" hidden>
+        <div class="fortschritt-balken" id="fortschritt-balken"></div>
+      </div>
+    </header>
+
+    <form id="umfrage" novalidate>
+      <!-- Inhalt wird komplett von app.js erzeugt -->
+      <div id="app" aria-live="polite"></div>
+
+      <!-- Honeypot: für Menschen unsichtbar, Bots füllen es aus -->
+      <div class="honig" aria-hidden="true">
+        <label>Website <input type="text" id="website" name="website" tabindex="-1" autocomplete="off"></label>
+      </div>
+    </form>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

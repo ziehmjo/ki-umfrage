@@ -1,0 +1,121 @@
+:root {
+  --hintergrund: #f4f2ee;
+  --karte: #ffffff;
+  --text: #1f1f1f;
+  --leise: #6b6b6b;
+  --linie: #ddd8d0;
+  --akzent: #2f5d50;
+  --akzent-hell: #e3ece8;
+  --fehler: #a33a2a;
+  --radius: 12px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --hintergrund: #161716;
+    --karte: #212322;
+    --text: #ecebe8;
+    --leise: #9a9a96;
+    --linie: #3a3d3b;
+    --akzent: #7fbfa8;
+    --akzent-hell: #2a3a34;
+    --fehler: #e08a7a;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 32px 16px;
+  background: var(--hintergrund);
+  color: var(--text);
+  font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.karte {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 28px;
+  background: var(--karte);
+  border: 1px solid var(--linie);
+  border-radius: var(--radius);
+}
+
+.kicker { margin: 0 0 4px; color: var(--leise); font-size: 14px; }
+h1 { margin: 0 0 20px; font-size: 26px; line-height: 1.2; }
+h2 { margin: 0 0 10px; font-size: 16px; }
+.text { margin: 0 0 20px; }
+
+/* Fortschritt */
+.fortschritt { height: 6px; margin-bottom: 24px; background: var(--linie); border-radius: 3px; overflow: hidden; }
+.fortschritt-balken { height: 100%; width: 0; background: var(--akzent); transition: width .3s ease; }
+
+/* Frage */
+.frage { margin: 0; padding: 0; border: 0; min-width: 0; }
+.frage legend { padding: 0; margin-bottom: 14px; font-size: 20px; font-weight: 600; }
+.nummer { display: block; margin-bottom: 4px; color: var(--leise); font-size: 14px; font-weight: 400; }
+.hinweis { margin: -8px 0 14px; color: var(--leise); font-size: 14px; }
+
+.optionen { display: grid; gap: 8px; }
+.optionen.raster { grid-template-columns: repeat(7, 1fr); }
+.optionen.skala { grid-template-columns: repeat(5, 1fr); }
+
+.option { position: relative; cursor: pointer; }
+.option input { position: absolute; opacity: 0; pointer-events: none; }
+.option span {
+  display: block;
+  padding: 12px 14px;
+  border: 1px solid var(--linie);
+  border-radius: 8px;
+  transition: border-color .15s, background .15s;
+}
+.raster .option span, .skala .option span { text-align: center; padding: 12px 0; }
+.option:hover span { border-color: var(--akzent); }
+.option input:checked + span { border-color: var(--akzent); background: var(--akzent-hell); font-weight: 600; }
+.option input:focus-visible + span { outline: 2px solid var(--akzent); outline-offset: 2px; }
+
+.pole { display: flex; justify-content: space-between; margin-top: 6px; color: var(--leise); font-size: 13px; }
+
+/* Knöpfe */
+.aktionen { display: flex; justify-content: space-between; gap: 12px; margin-top: 24px; }
+.knopf {
+  padding: 11px 20px;
+  border: 1px solid var(--linie);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+}
+.knopf.haupt { border-color: var(--akzent); background: var(--akzent); color: var(--karte); font-weight: 600; }
+.knopf:disabled { opacity: .4; cursor: not-allowed; }
+
+/* Status und Fehler */
+.status { display: flex; align-items: center; gap: 10px; color: var(--leise); }
+.spinner { width: 16px; height: 16px; border: 2px solid var(--linie); border-top-color: var(--akzent); border-radius: 50%; animation: drehen .8s linear infinite; }
+@keyframes drehen { to { transform: rotate(360deg); } }
+.fehler { color: var(--fehler); }
+
+/* Ergebnisse */
+.danke { margin: 0 0 6px; font-size: 20px; font-weight: 600; }
+.auswertung { margin-top: 24px; }
+.zeile { display: grid; grid-template-columns: 11em 1fr 2.5em; align-items: center; gap: 10px; margin-bottom: 6px; font-size: 14px; }
+.zeile .label { overflow-wrap: anywhere; }
+.zeile em { color: var(--akzent); font-style: normal; font-weight: 600; }
+.spur { height: 10px; background: var(--linie); border-radius: 5px; overflow: hidden; }
+.balken { display: block; height: 100%; background: var(--leise); border-radius: 5px; }
+.zeile.mein .balken { background: var(--akzent); }
+.wert { text-align: right; font-variant-numeric: tabular-nums; }
+.kennzahl p { margin: 0; }
+.gross { font-size: 28px; font-weight: 700; color: var(--akzent); }
+
+/* Honeypot unsichtbar */
+.honig { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+@media (max-width: 480px) {
+  .karte { padding: 20px; }
+  .optionen.raster { grid-template-columns: repeat(4, 1fr); }
+  .zeile { grid-template-columns: 8em 1fr 2em; }
+}
